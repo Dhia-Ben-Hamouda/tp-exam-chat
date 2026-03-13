@@ -525,7 +525,7 @@
   <script>
     const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
       ? 'http://localhost:3000'
-      : '';   // same origin in production (nginx proxy)
+      : 'https://tp-exam-chat-xdbo.onrender.com/';   // same origin in production (nginx proxy)
 
     let currentUser = '';
     let lastCount = 0;
