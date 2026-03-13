@@ -567,21 +567,19 @@
       }
     }
 
-    /* ── RENDER ── */
     function renderMessages(msgs) {
       const container = document.getElementById('messages');
       const empty = document.getElementById('empty-state');
 
+      // ✅ Only remove .msg elements — never wipe #empty-state
+      [...container.querySelectorAll('.msg')].forEach(el => el.remove());
+
       if (msgs.length === 0) {
         empty.style.display = 'flex';
-        // remove all msg nodes
-        [...container.querySelectorAll('.msg')].forEach(el => el.remove());
         return;
       }
       empty.style.display = 'none';
 
-      // Build new set
-      container.innerHTML = '';
       msgs.forEach(msg => {
         const el = document.createElement('div');
         const isSystem = msg.author === 'System';
@@ -590,12 +588,12 @@
 
         const time = formatTime(msg.timestamp);
         el.innerHTML = `
-        <div class="msg-meta">
-          <span class="msg-author">${escapeHtml(msg.author)}</span>
-          <span class="msg-time">${time}</span>
-        </div>
-        <div class="msg-content">${escapeHtml(msg.content)}</div>
-      `;
+      <div class="msg-meta">
+        <span class="msg-author">${escapeHtml(msg.author)}</span>
+        <span class="msg-time">${time}</span>
+      </div>
+      <div class="msg-content">${escapeHtml(msg.content)}</div>
+    `;
         container.appendChild(el);
       });
     }
